@@ -1,2 +1,6 @@
+/production
+/staging
+/production-previous
+repository
 /vendor
 /composer.lock
