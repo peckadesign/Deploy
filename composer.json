@@ -10,7 +10,7 @@
 	"autoload" : {
 		"psr-4": {
 			"Pd\\Deploy\\": "src/",
-			"PdTests\\Deploy": "tests/"
+			"PdTests\\Deploy\\": "tests/"
 		}
 	},
 	"require": {
