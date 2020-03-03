@@ -49,7 +49,7 @@ ln -sfv ../../../../common/local.neon releases/$latestCommit/app/config/local.ne
 
 cd releases/$latestCommit
 
-export COMPOSER_HOME=/home/ubuntu && composer install --no-dev -n &> /dev/stdout && npm set progress=false && export NODE_ENV=production && tar xf ../../nm_cache.tar && npm install && tar cf ../../nm_cache.tar node_modules && grunt
+export COMPOSER_HOME=/home/pecka && make production
 
 buildError=$?
 
