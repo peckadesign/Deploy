@@ -4,3 +4,4 @@
 repository
 /vendor
 /composer.lock
+/.idea
