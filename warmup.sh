@@ -71,7 +71,7 @@ echo "www/data/banners"
 cd ./releases/$latestCommit
 echo ""
 
-#make production-links
+make production-links
 echo ""
 
 echo "4. Databázové migrace"
@@ -101,7 +101,7 @@ else
 
   echo ""
 	cd ./warmup
-#	make deploy-notify-beta
+	make deploy-notify-warmup
 	cd ..
 	echo ""
 
