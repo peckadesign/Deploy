@@ -1,14 +1,14 @@
 #!/bin/bash
 
 echo ""
-echo "Proběhne sestavení BETA prostředí"
+echo "Proběhne sestavení WARM-UP prostředí"
 echo $(date)
 echo "-------------------------------------------"
 echo ""
 
 echo "1. Stav před deployem"
-printf "beta -> "
-readlink beta
+printf "warmup -> "
+readlink warmup
 printf "production -> "
 readlink production
 printf "production-previous -> "
@@ -41,8 +41,6 @@ echo "3. Sestavení release"
 
 cd ./releases/$latestCommit
 
-export COMPOSER_HOME=/home/pecka
-
 echo " - 3.1. Composer"
 make production-composer
 echo ""
@@ -54,7 +52,7 @@ echo ""
 cd ../..
 
 echo " - 3.3. Symlinks"
-cp common/local.neon releases/$latestCommit/app/config/local.neon
+cp common/app/config/local.neon releases/$latestCommit/app/config/local.neon
 echo "app/config/local.neon"
 
 rm -rf releases/$latestCommit/log
@@ -62,18 +60,18 @@ ln -sfn ../../common/log releases/$latestCommit/log
 echo "log/"
 
 rm -rf releases/$latestCommit/www/data/banners
-ln -sf ../../../../common/data/banners releases/$latestCommit/www/data/banners
+ln -sf ../../../../common/www/data/banners releases/$latestCommit/www/data/banners
 echo "www/data/banners"
 
-rm -rf releases/$latestCommit/www/data/images
-ln -sf ../../../../common/data/images releases/$latestCommit/www/data/images
-echo "www/data/images"
+#rm -rf releases/$latestCommit/www/data/images
+#ln -sf ../../../../common/data/images releases/$latestCommit/www/data/images
+#echo "www/data/images"
 
 
 cd ./releases/$latestCommit
 echo ""
 
-make production-links
+#make production-links
 echo ""
 
 echo "4. Databázové migrace"
@@ -98,20 +96,20 @@ if [ $buildError -gt 0 ]; then
 
 else
 
-	echo "5. Beta se nastaví na poslední release - ./releases/$latestCommit"
-	ln -sfn releases/$latestCommit beta
+	echo "5. WarmUp se nastaví na poslední release - ./releases/$latestCommit"
+	ln -sfn releases/$latestCommit warmup
 
   echo ""
-	cd ./beta
-	make deploy-notify-beta
+	cd ./warmup
+#	make deploy-notify-beta
 	cd ..
 	echo ""
 
 fi;
 
-echo "6. Stav po deployi do BETA prostředí"
-printf "beta -> "
-readlink beta
+echo "6. Stav po deployi do WARM-UP prostředí"
+printf "warmup -> "
+readlink warmup
 printf "production -> "
 readlink production
 printf "production-previous -> "
@@ -119,12 +117,12 @@ readlink production-previous
 echo ""
 
 echo "7. Odeberou se stará sestavení"
-betaRelease=$(readlink beta | cut -d / -f 2)
+warmupRelease=$(readlink warmup | cut -d / -f 2)
 productionRelease=$(readlink production | cut -d / -f 2)
 productionPreviousRelease=$(readlink production-previous | cut -d / -f 2)
 
 cd releases
-rm -rf `ls -t | grep -v $betaRelease | grep -v $productionRelease | grep -v $productionPreviousRelease | tail -n +2`
+rm -rf `ls -t | grep -v $warmupRelease | grep -v $productionRelease | grep -v $productionPreviousRelease | tail -n +2`
 ls -lt .
 
 echo ""
