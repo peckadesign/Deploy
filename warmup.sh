@@ -81,7 +81,7 @@ php tools/db-migrate.php status
 echo ""
 
 echo " - 4.2. Provádění migrací"
-#php tools/db-migrate.php up
+php tools/db-migrate.php up
 
 echo ""
 cd ../..
