@@ -49,29 +49,9 @@ echo " - 3.2. Assets"
 make production-assets
 echo ""
 
-cd ../..
+echo " - 3.3. Dynamic files, Symlinks"
+make production-warmup
 
-echo " - 3.3. Symlinks"
-cp common/app/config/local.neon releases/$latestCommit/app/config/local.neon
-echo "app/config/local.neon"
-
-rm -rf releases/$latestCommit/log
-ln -sfn ../../common/log releases/$latestCommit/log
-echo "log/"
-
-rm -rf releases/$latestCommit/www/data/banners
-ln -sf ../../../../common/www/data/banners releases/$latestCommit/www/data/banners
-echo "www/data/banners"
-
-#rm -rf releases/$latestCommit/www/data/images
-#ln -sf ../../../../common/data/images releases/$latestCommit/www/data/images
-#echo "www/data/images"
-
-
-cd ./releases/$latestCommit
-echo ""
-
-make production-links
 echo ""
 
 echo "4. Databázové migrace"
