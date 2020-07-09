@@ -27,12 +27,15 @@ git pull -p
 echo ""
 
 latestCommit=$(git log -n1 --format="%h")
+deployUser=$(git log -n1 --format="%an")
+
 echo " - 2.3. poslední commit je $latestCommit"
 echo ""
 
 echo " - 2.4. export do ./releases/$latestCommit"
 git checkout-index -af --prefix=../releases/$latestCommit/
 echo $latestCommit | tee ../releases/$latestCommit/temp/commit > /dev/null
+echo $deployUser | tee ../releases/$latestCommit/temp/deployUser > /dev/null
 echo ""
 
 cd ..
