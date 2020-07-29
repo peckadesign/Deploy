@@ -15,14 +15,14 @@ printf "production-previous -> "
 readlink production-previous
 echo ""
 
-echo "2. Nastaví se aktuální production-previous jako production"
+echo "2. Vypnutí démonů"
+supervisorctl status
+supervisorctl stop all
+
+echo "3. Nastaví se aktuální production-previous jako production"
 previousProduction=$(readlink production-previous)
 ln -sfnv $previousProduction production
 echo ""
-
-echo "3. Vypnutí démonů"
-supervisorctl status
-supervisorctl stop all
 
 cd ./production
 

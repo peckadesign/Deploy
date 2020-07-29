@@ -10,7 +10,7 @@ Skutečné složky:
 ```
     repository => naklonovaný projekt
     releases/<commit-hash> => vyexportovaná aktuální verze projektu z repository
-    common => složka s datama a konfigurací, které mají zůstat napříč deployi
+    common => složka s daty a konfigurací, které mají zůstat napříč deployi
 ```
 Symlinky:
 

@@ -4,8 +4,21 @@ echo ""
 echo "Proběhne sestavení WARM-UP prostředí"
 echo $(date)
 echo "-------------------------------------------"
-echo ""
+USED=$(cat ./production/temp/redis)
 
+SELECTED=$1
+
+if [ -z "$1" ]; then
+ echo "Vyberte Redis DB"
+ exit 1
+fi
+
+if [ $SELECTED == $USED ]; then
+  echo "Vyberte jinou DB, tato se využívá v produkci"
+  exit 2
+fi
+
+echo ""
 echo "1. Stav před deployem"
 printf "warmup -> "
 readlink warmup
@@ -56,6 +69,10 @@ echo " - 3.3. Dynamic files, Symlinks"
 make production-warmup
 
 echo ""
+echo "Redis DB"
+redis-cli -n $SELECTED flushdb
+sed -i "s/database: [[:digit:]]/database: ${SELECTED}/g" app/config/local.neon
+echo $SELECTED | tee temp/redis > /dev/null
 
 echo "4. Databázové migrace"
 echo " - 4.1. Stav migrací"
@@ -116,3 +133,4 @@ echo ""
 
 echo "9. Konec aktualizace"
 echo $(date)
+echo $buildError

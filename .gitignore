@@ -1,9 +1,8 @@
 /production
 /warmup
 /production-previous
-repository
+/repository
 /vendor
 /www
 /log
 /composer.lock
-/.idea
