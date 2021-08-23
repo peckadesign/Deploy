@@ -28,7 +28,7 @@ printf "production-previous -> "
 readlink production-previous
 echo ""
 
-cd repository
+cd repository || { echo "Adresář repository neexistuje"; exit 1; }
 
 echo "2. Příprava repozitáře"
 echo " - 2.1. vyčištění"
@@ -55,7 +55,7 @@ cd ..
 
 echo "3. Sestavení release"
 
-cd ./releases/$latestCommit
+cd ./releases/$latestCommit || { echo "Adresář releases $latestCommit"; exit 1; }
 
 echo " - 3.1. Composer"
 make production-composer
@@ -100,7 +100,7 @@ else
 	ln -sfn releases/$latestCommit warmup
 
   echo ""
-	cd ./warmup
+	cd ./warmup || { echo "Adresář warmup neexistuje"; exit 1; }
 	make deploy-notify-warmup
 	cd ..
 	echo ""
@@ -121,7 +121,7 @@ warmupRelease=$(readlink warmup | cut -d / -f 2)
 productionRelease=$(readlink production | cut -d / -f 2)
 productionPreviousRelease=$(readlink production-previous | cut -d / -f 2)
 
-cd releases
+cd releases || { echo "Adresář releases neexistuje"; exit 1; }
 rm -rf `ls -t | grep -v $warmupRelease | grep -v $productionRelease | grep -v $productionPreviousRelease | tail -n +2`
 ls -lt .
 
