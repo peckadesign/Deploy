@@ -58,4 +58,10 @@ production-links:
 4. Zapnout se démoni ```supervisorctl reload```
 5. Notifikace deploye na produkci, projektové volání ```make deploy-notify```
 
+---
+#### Kontrolní check-list 
+- konfigurační soubory pro služby vedou správně do adresáře production (Např.: namísto původního app/config > production/app/config/)
+  - supervisor.conf 
+- Warmup domény jsou omezeny na IP adresu Pecka kanceláří
+
 # Profit!
