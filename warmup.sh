@@ -9,7 +9,7 @@ USED=$(cat ./production/temp/redis)
 SELECTED=$1
 
 if [ -z "$1" ]; then
- echo "Vyberte Redis DB"
+ echo "Vyberte Redis DB. Produkční je ${USED}."
  exit 1
 fi
 
