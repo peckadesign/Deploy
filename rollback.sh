@@ -24,7 +24,7 @@ previousProduction=$(readlink production-previous)
 ln -sfnv $previousProduction production
 echo ""
 
-cd ./production
+cd ./production || { echo "Adresář production neexistuje"; exit 1; }
 
 make production-supervisor
 
