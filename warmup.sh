@@ -61,12 +61,12 @@ echo " - 3.1. Composer"
 make production-composer
 echo ""
 
-echo " - 3.2. Assets"
+echo " - 3.2. Dynamic files, Symlinks"
+make production-warmup
+
+echo " - 3.3. Assets"
 make production-assets
 echo ""
-
-echo " - 3.3. Dynamic files, Symlinks"
-make production-warmup
 
 echo ""
 echo "Redis DB"
