@@ -41,6 +41,7 @@ echo ""
 
 latestCommit=$(git log -n1 --format="%h")
 deployUser=$(git log -n1 --format="%an")
+version=$(git describe --tags --exact-match 2>> /dev/null || git rev-parse HEAD)
 
 echo " - 2.3. poslední commit je $latestCommit"
 echo ""
@@ -58,7 +59,7 @@ echo "3. Sestavení release"
 cd ./releases/$latestCommit || { echo "Adresář releases $latestCommit"; exit 1; }
 
 echo " - 3.1. Composer"
-make production-composer
+COMPOSER_ROOT_VERSION=$version make production-composer
 echo ""
 
 echo " - 3.2. Dynamic files, Symlinks"
